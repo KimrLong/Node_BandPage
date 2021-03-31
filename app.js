@@ -1,10 +1,13 @@
+const http = require('http');
 const express = require('express');
 const app = express();
+const port = process.env.PORT || 3000
 //ejs
 app.set( "view engine", "ejs");
 app.set('views','views')
 //public
 app.use(express.static('public'));
+
 
 
 
@@ -17,9 +20,12 @@ app.use(require('./routes/api'));
 
 
 
-app.listen(3001, ()=>{
-
-    console.log('server is running on port 3000');
-})
-
-console.log('testing')
+const server = http.createServer((req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
+    res.end('<h1>Hello World</h1>');
+  });
+  
+  server.listen(port,() => {
+    console.log(`Server running at port `+port);
+  });
